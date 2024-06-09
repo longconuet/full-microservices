@@ -1,0 +1,59 @@
+services:
+  #database section
+  orderdb:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+
+  productdb:
+    image: mysql:8.0.29
+
+  customerdb:
+    image: postgres:alpine3.16
+
+  basketdb:
+    image: redis:alpine
+
+  inventorydb:
+    image: mongo
+
+
+  #infrastructure section
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+
+  pgadmin:
+    image: dpage/pgadmin4
+
+  portainer:
+    image: portainer/portainer-ce
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.2
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.2
+    
+    
+    
+#network section
+networks:
+  default:
+    name: tedu_microservices
+    driver: bridge
+
+
+#volumn section
+volumes:
+  order_data:
+    name: order_data
+  product_data:
+    name: product_data
+  customer_data:
+    name: customer_data
+  inventory_data:
+    name: inventory_data
+  pgadmin_data:
+    name: pgadmin_data
+  portainer_data:
+    name: portainer_data
+  elasticsearch_data:
+    name: elasticsearch_data
