@@ -17,12 +17,15 @@ services:
   productdb:
     container_name: productdb
     environment:
-      MYSQL_ROOT_PASSWORD: "Passw0rd!"
+      - MYSQL_ROOT_PASSWORD=rootpasswd
+      - MYSQL_DATABASE=ProductDB
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=userpasswd
     restart: always
     volumes:
       - product_data:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - "3307:3306"
 
   #customerdb: postgres
   customerdb:
