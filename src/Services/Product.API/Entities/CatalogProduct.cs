@@ -7,14 +7,14 @@ namespace Product.API.Entities
     public class CatalogProduct : EntityAuditableBase<long>
     {
         [Required]
-        [Column(TypeName = "nvarchar(250)")]
+        [Column(TypeName = "varchar(250)")]
         public string No { get; set; }
 
         [Required]
-        [Column(TypeName = "nvarchar(250)")]
+        [Column(TypeName = "varchar(250)")]
         public string Name { get; set; }
 
-        [Column(TypeName = "nvarchar(max)")]
+        [Column(TypeName = "text")]
         public string Summary { get; set; }
 
         [Column(TypeName = "text")]
