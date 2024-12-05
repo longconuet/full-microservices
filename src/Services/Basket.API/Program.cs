@@ -1,3 +1,4 @@
+using Basket.API.Extensions;
 using Common.Logging;
 using Serilog;
 
@@ -10,6 +11,13 @@ Log.Information("Starting Basket API up...");
 try
 {
     // Add services to the container.
+    builder.Host.UseSerilog(Serilogger.Configure);
+    builder.Host.AddAppConfigurations();
+
+    builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+
+    builder.Services.ConfigureServices();
+    builder.Services.ConfigureRedis(builder.Configuration);
 
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -35,6 +43,11 @@ try
 }
 catch (Exception ex)
 {
+    string type = ex.GetType().Name;
+    if (type.Equals("StopTheHostException", StringComparison.Ordinal))
+    {
+        throw;
+    }
     Log.Fatal(ex, "Unhandled exception");
 }
 finally
