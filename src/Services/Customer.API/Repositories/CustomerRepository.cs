@@ -1,14 +1,13 @@
-﻿using Contracts.Common.Interfaces;
-using Customer.API.Persistence;
+﻿using Customer.API.Persistence;
 using Customer.API.Repositories.Interfaces;
 using Infrastructure.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace Customer.API.Repositories
 {
-    public class CustomerRepository : RepositoryBaseAsync<Entities.Customer, int, CustomerDbContext>, ICustomerRepository
+    public class CustomerRepository : RepositoryQueryBaseAsync<Entities.Customer, int, CustomerDbContext>, ICustomerRepository
     {
-        public CustomerRepository(CustomerDbContext context, IUnitOfWork<CustomerDbContext> unitOfWork) : base(context, unitOfWork)
+        public CustomerRepository(CustomerDbContext context) : base(context)
         {
         }
 
