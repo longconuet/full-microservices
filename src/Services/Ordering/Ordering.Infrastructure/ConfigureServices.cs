@@ -15,6 +15,8 @@ namespace Ordering.Infrastructure
                     builder => builder.MigrationsAssembly(typeof(OrderDbContext).Assembly.FullName));
             });
 
+
+            services.AddScoped<OrderDbContextSeed>();
             return services;
         }
     }

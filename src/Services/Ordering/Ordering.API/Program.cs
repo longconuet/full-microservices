@@ -1,5 +1,7 @@
 using Serilog;
 using Ordering.Infrastructure;
+using Ordering.Infrastructure.Persistence;
+using Common.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +10,7 @@ Log.Information("Starting Ordering API up...");
 try
 {
     // Add services to the container.
-
+    builder.Host.UseSerilog(Serilogger.Configure);
     builder.Services.AddInfrastructureServices(builder.Configuration);
 
     builder.Services.AddControllers();
@@ -23,6 +25,14 @@ try
     {
         app.UseSwagger();
         app.UseSwaggerUI();
+    }
+
+    // Init and seed db
+    using (var scope = app.Services.CreateScope())
+    {
+        var orderDbContextSeed = scope.ServiceProvider.GetRequiredService<OrderDbContextSeed>();
+        await orderDbContextSeed.InitialiseAsync();
+        await orderDbContextSeed.TrySeedAsync();
     }
 
     app.UseHttpsRedirection();
