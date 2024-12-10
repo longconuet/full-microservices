@@ -482,3 +482,4 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+/src/Services/Ordering/Ordering.API/appsettings.Development.json
