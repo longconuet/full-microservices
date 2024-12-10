@@ -2,6 +2,7 @@ using Serilog;
 using Ordering.Infrastructure;
 using Ordering.Infrastructure.Persistence;
 using Common.Logging;
+using Ordering.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,9 @@ try
     // Add services to the container.
     builder.Host.UseSerilog(Serilogger.Configure);
     builder.Services.AddInfrastructureServices(builder.Configuration);
+    builder.Services.AddApplicationServices();
+
+    builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

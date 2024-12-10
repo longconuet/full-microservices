@@ -4,8 +4,7 @@ using System.Linq.Expressions;
 
 namespace Contracts.Common.Interfaces
 {
-    public interface IRepositoryQueryAsync<T, K, TContext> where T : EntityBase<K>
-        where TContext : DbContext
+    public interface IRepositoryQueryAsync<T, K> where T : EntityBase<K>
     {
         IQueryable<T> FindAll(bool trackChanges = false);
         IQueryable<T> FindAll(bool trackChanges = false, params Expression<Func<T, object>>[] includeProperties);
@@ -13,5 +12,11 @@ namespace Contracts.Common.Interfaces
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges = false, params Expression<Func<T, object>>[] includeProperties);
         Task<T?> GetByIdAsync(K id);
         Task<T?> GetByIdAsync(K id, params Expression<Func<T, object>>[] includeProperties);
+    }
+
+    public interface IRepositoryQueryAsync<T, K, TContext> : IRepositoryQueryAsync<T, K>
+        where T : EntityBase<K>
+        where TContext : DbContext
+    {
     }
 }

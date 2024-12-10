@@ -28,7 +28,7 @@ namespace Ordering.Application.Common.Mappings
                 var instance = Activator.CreateInstance(type);
                 var methodInfo = type.GetMethod(mappingMethodName);
 
-                if ( methodInfo != null )
+                if (methodInfo != null)
                 {
                     methodInfo.Invoke(instance, [this]);
                 }
@@ -45,6 +45,8 @@ namespace Ordering.Application.Common.Mappings
                     {
                         var interfaceMethodInfo = @interface.GetMethod(mappingMethodName, argumentTypes);
                         interfaceMethodInfo?.Invoke(instance, [this]);
+                    }
+                }
             }
         }
     }
