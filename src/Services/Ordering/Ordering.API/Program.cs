@@ -3,6 +3,7 @@ using Ordering.Infrastructure;
 using Ordering.Infrastructure.Persistence;
 using Common.Logging;
 using Ordering.Application;
+using Ordering.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ try
     builder.Host.UseSerilog(Serilogger.Configure);
     builder.Services.AddInfrastructureServices(builder.Configuration);
     builder.Services.AddApplicationServices();
+    builder.Services.AddConfigurationSettings(builder.Configuration);
 
     builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
