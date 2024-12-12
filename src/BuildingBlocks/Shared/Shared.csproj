@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="DTOs\Customer\" />
-    <Folder Include="Configurations\" />
   </ItemGroup>
 
   <ItemGroup>
