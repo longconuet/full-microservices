@@ -1,11 +1,12 @@
-﻿using Contracts.Domains;
+﻿using Contracts.Common.Events;
+using Contracts.Domains;
 using Ordering.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ordering.Domain.Entities
 {
-    public class Order : EntityAuditableBase<long>
+    public class Order : AuditableEventEntity<long>
     {
         [Required]
         public string UserName { get; set; }
