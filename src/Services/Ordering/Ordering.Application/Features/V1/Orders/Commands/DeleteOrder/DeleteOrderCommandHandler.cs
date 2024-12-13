@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
+using Ordering.Application.Common.Exceptions;
 using Ordering.Application.Common.Interfaces;
+using Ordering.Domain.Entities;
 using Serilog;
 
 namespace Ordering.Application.Features.V1.Orders.Commands.DeleteOrder
@@ -20,6 +22,12 @@ namespace Ordering.Application.Features.V1.Orders.Commands.DeleteOrder
 
         public async Task Handle(DeleteOrderCommand request, CancellationToken cancellationToken)
         {
+            var order = await _orderRepository.GetByIdAsync(request.Id);
+            if (order == null)
+            {
+                throw new NotFoundException(nameof(Order), request.Id);
+            }
+
             _logger.Information($"BEGIN: {nameof(DeleteOrderCommand)} - OrderId: {request.Id}");
 
             await _orderRepository.DeleteOrder(request.Id);

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Ordering.Application.Common.Exceptions;
 using Ordering.Application.Common.Interfaces;
 using Ordering.Application.Common.Models;
 using Ordering.Domain.Entities;
@@ -23,12 +24,18 @@ namespace Ordering.Application.Features.V1.Orders.Commands.UpdateOrder
 
         public async Task<ApiResult<OrderDto>> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
         {
-            _logger.Information($"BEGIN: {nameof(UpdateOrderCommand)} - Username: {request.UserName}");
+            var order = await _orderRepository.GetByIdAsync(request.Id);
+            if (order == null)
+            {
+                throw new NotFoundException(nameof(Order), request.Id);
+            }
 
-            var result = await _orderRepository.UpdateOrder(_mapper.Map<Order>(request));
+            _logger.Information($"BEGIN: {nameof(UpdateOrderCommand)} - Username: {order.UserName}");
+
+            var result = await _orderRepository.UpdateOrder(_mapper.Map(request, order));
             await _orderRepository.SaveChangesAsync();
 
-            _logger.Information($"END: {nameof(UpdateOrderCommand)} - Username: {request.UserName}");
+            _logger.Information($"END: {nameof(UpdateOrderCommand)} - Username: {order.UserName}");
 
             return new ApiSuccessResult<OrderDto>(_mapper.Map<OrderDto>(result));
         }

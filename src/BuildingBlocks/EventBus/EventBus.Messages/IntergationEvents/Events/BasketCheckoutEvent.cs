@@ -5,7 +5,6 @@ namespace EventBus.Messages.IntergationEvents.Events
     public record BasketCheckoutEvent : IntergrationBaseEvent, IBasketCheckoutEvent
     {
         public string UserName { get; set; }
-        public decimal TotalPrice { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string EmailAddress { get; set; }

@@ -62,8 +62,9 @@ namespace Basket.API.Extensions
                 config.UsingRabbitMq((ctx, cfg) =>
                 {
                     cfg.Host(mqConnection);
+                    cfg.ConfigureEndpoints(ctx);
                 });
-                config.AddRequestClient<IBasketCheckoutEvent>();
+                //config.AddRequestClient<IBasketCheckoutEvent>();
             });
             
         }
