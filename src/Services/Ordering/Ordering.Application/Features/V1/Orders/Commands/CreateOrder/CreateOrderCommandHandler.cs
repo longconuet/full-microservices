@@ -24,12 +24,14 @@ namespace Ordering.Application.Features.V1.Orders.Commands.CreateOrder
         {
             _logger.Information($"BEGIN: {nameof(CreateOrderCommand)} - Username: {request.UserName}");
 
-            var result = await _orderRepository.CreateOrder(_mapper.Map<Order>(request));
+            var orderEntity = _mapper.Map<Order>(request);
+            _orderRepository.CreateOrder(orderEntity);
+            orderEntity.AddedOrder();
             await _orderRepository.SaveChangesAsync();
 
             _logger.Information($"END: {nameof(CreateOrderCommand)} - Username: {request.UserName}");
 
-            return new ApiSuccessResult<long>(result);
+            return new ApiSuccessResult<long>(orderEntity.Id);
         }
     }
 }
