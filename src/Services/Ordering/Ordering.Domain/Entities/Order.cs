@@ -37,6 +37,9 @@ namespace Ordering.Domain.Entities
 
         public EOrderStatus Status { get; set; }
 
+        [NotMapped]
+        public string FullName => FirstName + " " + LastName;
+
         public Order AddedOrder()
         {
             AddDomainEvent(new OrderCreatedEvent(Id, UserName, TotalPrice, "no", EmailAddress, ShippingAddress, InvoiceAddress));

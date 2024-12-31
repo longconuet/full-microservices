@@ -31,6 +31,7 @@ namespace Ordering.Application.Features.V1.Orders.Commands.DeleteOrder
             _logger.Information($"BEGIN: {nameof(DeleteOrderCommand)} - OrderId: {request.Id}");
 
             await _orderRepository.DeleteOrder(request.Id);
+            order.DeletedOrder();
             await _orderRepository.SaveChangesAsync();
 
             _logger.Information($"END: {nameof(DeleteOrderCommand)} - OrderId: {request.Id}");
