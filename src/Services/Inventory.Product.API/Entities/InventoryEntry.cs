@@ -18,14 +18,19 @@ namespace Inventory.Product.API.Entities
             Id = id;
         }
 
+        [BsonElement("quantity")]
+        public int Quantity { get; set; }
+
         [BsonElement("documentType")]
         public EDocumentType DocumentType { get; set; }
-
 
         [BsonElement("documentNo")]
         public string DocumentNo { get; set; }
 
         [BsonElement("externalDocumentNo")]
         public string ExternalDocumentNo { get; set; }
+
+        [BsonElement("itemNo")]
+        public string ItemNo { get; set; }
     }
 }

@@ -13,6 +13,8 @@ try
     // Add services to the container.
     builder.Host.UseSerilog(Serilogger.Configure);
 
+    builder.Services.AddInfrastructureServices();
+    builder.Services.AddConfigurationSettings(builder.Configuration);
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
@@ -20,6 +22,7 @@ try
     builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
     builder.Services.AddInfrastructureServices();
+    builder.Services.ConfigueMongoDbClient();
 
     var app = builder.Build();
 
@@ -35,6 +38,8 @@ try
     app.UseAuthorization();
 
     app.MapControllers();
+
+    app.MigrateDatabase();
 
     app.Run();
 }

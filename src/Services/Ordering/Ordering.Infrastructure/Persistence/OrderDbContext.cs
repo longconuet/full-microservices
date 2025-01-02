@@ -78,7 +78,7 @@ namespace Ordering.Infrastructure.Persistence
             }
 
             var result = base.SaveChangesAsync(cancellationToken);
-            _mediator.DispatchDomainEventAsync(this, _logger);
+            _mediator.DispatchDomainEventAsync(_baseEvents, _logger);
 
             return result;
         }

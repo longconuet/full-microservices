@@ -8,5 +8,6 @@
         public string EmailAddress { get; set; }
         public string ShippingAddress { get; set; }
         public string InvoiceAddress { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 }
